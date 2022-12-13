@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cards game</title>
+  <style>
+    body{
+    width:98%;
+    text-align: center;
+}
+span{
+   font-size: 60px;
+   color: rgb(255, 196, 241);
+   text-shadow: #8be8ff 2px 1px;
+}
+.Name1{
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-around;
+}
+.numbers{
+    width: 90%;
+    padding-top: 10px;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+.numbers2{ 
+    font-size: 20px;
+    margin: auto;
+    font-style: italic;
+}
+.Iteration{
+    font-size: 2px;
+    font-style: italic;
+}
+.Start{
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+
+}
+.round{
+    background-color: #8be8ff;
+    border-color: white;
+    width: 100px;
+    height: 40px;
+    padding: 2% 7%;
+    font-size: 50px;
+    font-weight: bold;
+    align-content: center;
+    border-radius: 10px;
+}
+button{
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    color: aliceblue;
+    border-radius: 10px;
+    background-color: rgb(255, 196, 241);
+    border-color: rgb(255, 196, 241);
+}
+  </style>
+</head>
+<body>
+    <div class = "Name1">
+      <span  id = "username">User</span>
+      <span>Computer</span>
+    </div>
+    <div class = "numbers">
+      <div class = "round" id = "userbox">0</div>
+      <div class = "numbers2">Спроба <font id="amount">0</font> із 3.</div>
+      <div class = "round" id = "compbox">0</div>
+    </div>
+    <div class = "Start">
+      <button type="button" name="button">Generate</button>
+    </div>
+    <div class = "Start">
+      <div id = "card1"></div>
+      <div id = "card2"></div>
+    </div>
+
+<script>
+    let username = prompt('Please, enter your name:');
+    let name = document.querySelector('#username');
+    name.innerHTML = username;
+    
+    const button = document.querySelector('button');
+
+    var userAmount = 0;
+    var computerAmount = 0;
+    var gameAmount = 0;
+
+    function Cards(X, cards){
+      switch (X) {
+        case 1:
+        cards.innerHTML = "<img src= 6-C.png>";
+          return 6;
+        case 2:
+        cards.innerHTML = "<img src= 7-D.png>"
+          return 7;
+        case 3:
+        cards.innerHTML = "<img src= 8-S.png>"
+          return 8;
+        case 4:
+        cards.innerHTML = "<img src= 9-H.png>"
+          return 9;
+        case 5:
+        cards.innerHTML = "<img src= 10-D.png>"
+          return 10;
+        case 6:
+        cards.innerHTML = "<img src= J-H.png>"
+          return 2;
+        case 7:
+        cards.innerHTML = "<img src= Q-D.png>"
+          return 3;
+        case 8:
+        cards.innerHTML = "<img src= K-D.png>"
+          return 4;
+        case 9:
+        cards.innerHTML = "<img src= A-S.png>"
+          return 11;
+        default:
+          console.error();
+      }
+    }
+
+    const user2 = document.querySelector('#userbox');
+    const comp2 = document.querySelector('#compbox');
+    const gameamaount = document.querySelector('#amount');
+
+    const card1 = document.querySelector('#card1');
+    const card2 = document.querySelector('#card2');
+
+    button.addEventListener('click', () =>{
+
+      let userX = randomcards(1,9); //генерує випадкове ціле число від min до max (включно)
+      let compX = randomcards(1,9);
+
+      //отримати карти
+      let X = Cards(userX, card1); 
+      let Y = Cards(compX, card2);
+
+      userAmount += X;
+      computerAmount += Y;
+
+      userbox.innerHTML = userAmount;
+      compbox.innerHTML = computerAmount;
+
+      gameAmount++;
+      gameamaount.innerHTML = gameAmount;
+
+      setTimeout(WinnerofGame, 0, userAmount, computerAmount); //
+    });
+
+    function WinnerofGame(x, y){
+      if (gameAmount==3) {
+        if (x < y) {
+        alert('Computer is winner!');
+        location.reload();
+        }else {
+          if (x > y) {
+            alert('You are winner!');
+          }
+        }
+      }
+    }
+    
+    function randomcards(min, max) {
+      let rand = min - 0.5 + Math.random() * (max - min + 1);
+      return Math.round(rand);
+    }
+    </script>
+    </body>
+    </html>
